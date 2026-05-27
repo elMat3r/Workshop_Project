@@ -2,15 +2,26 @@ using UnityEngine;
 
 public class Obstacles_Script : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public int requiredRobots = 4;
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            int currentHordeSize = Horda_Manager.Instance.activeRobots.Count;
+
+            if (currentHordeSize >= requiredRobots)
+            {
+                ExplodeObstacle();
+            }
+            else
+            {
+                Horda_Manager.Instance.RemoveRobot(collision.gameObject);
+            }
+        }
+    }
+    private void ExplodeObstacle()
+    {
+        Destroy(gameObject);
     }
 }

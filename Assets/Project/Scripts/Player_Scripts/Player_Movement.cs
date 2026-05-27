@@ -13,6 +13,10 @@ public class Player_Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         timeElapsed = 0f;
+        if (playerSpeed <= 0.1f)
+        {
+            playerSpeed = 5f;
+        }
     }
     private void FixedUpdate()
     {

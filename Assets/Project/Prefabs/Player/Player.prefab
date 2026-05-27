@@ -16,9 +16,11 @@ GameObject:
   - component: {fileID: 7525198954827279233}
   - component: {fileID: 8726200022617962519}
   - component: {fileID: 8382060542560317519}
+  - component: {fileID: 7131967166436775370}
+  - component: {fileID: 7450741640144407887}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +146,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &7525198954827279233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff469b936af339241805998d6e5f060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Movement
-  playerSpeed: 1
+  playerSpeed: 2
   progressiveSpeed:
     serializedVersion: 2
     m_Curve:
@@ -229,3 +231,31 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   loopSpeed: 0
+--- !u!114 &7131967166436775370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940219998068413814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf22665f6262df44f8c3ec302521011a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_ObstacleCollision
+--- !u!114 &7450741640144407887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940219998068413814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512dd6d46dea2ee4aa30124237b6e0ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Robots_Script
+  proceduralMovement: {fileID: 8382060542560317519}
+  jumpForce: 6.8
+  gravityMultiplier: 49
+  dashDuration: 0.49
