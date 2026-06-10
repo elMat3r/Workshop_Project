@@ -1,0 +1,26 @@
+{
+  "friendlyName": "Custom Screen (1340x800)",
+  "version": 1,
+  "screens": [
+    {
+      "width": 1340,
+      "height": 800,
+      "dpi": 240,
+      "presentation": {
+        "borderImages": {}
+      }
+    }
+  ],
+  "systemInfo": {
+    "deviceModel": "Custom 1340x800",
+    "operatingSystem": "Android OS",
+    "processorCount": 8,
+    "systemMemorySize": 4096,
+    "graphicsMemorySize": 1024,
+    "graphicsDeviceName": "Vulkan",
+    "graphicsDeviceVersion": "Vulkan 1.1",
+    "supportsAccelerometer": true,
+    "supportsGyroscope": true,
+    "supportsVibration": true
+  }
+}
