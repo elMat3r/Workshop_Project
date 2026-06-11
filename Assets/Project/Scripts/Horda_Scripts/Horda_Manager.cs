@@ -112,4 +112,31 @@ public class Horda_Manager : MonoBehaviour
             transform.position = new Vector3(activeRobots[0].transform.position.x, transform.position.y, transform.position.z);
         }
     }
+    //// DENTRO DE HORDA_MANAGER.CS
+
+    //[Header("Configuración de Velocidad Global")]
+    //public float velocidadInicial = 5f;
+    //public float velocidadMaxima = 15f;
+    //public float aceleracionPorSegundo = 0.05f; // Cuánto aumenta la velocidad cada segundo
+
+    //// Esta es la variable pública que TODO el mundo va a leer
+    //public float VelocidadActual del Juego { get; private set; }
+
+    //void Awake()
+    //{
+    //    // Inicializamos la velocidad al arrancar
+    //    VelocidadActualDelJuego = velocidadInicial;
+    //}
+
+    //void Update()
+    //{
+    //    // Si la horda no ha muerto, aumentamos la velocidad gradualmente con el tiempo
+    //    if (activeRobots.Count > 0)
+    //    {
+    //        VelocidadActualDelJuego += aceleracionPorSegundo * Time.deltaTime;
+
+    //        // Ponemos un tope para que el juego no se vuelva imposible matemáticamente
+    //        VelocidadActualDelJuego = Mathf.Clamp(VelocidadActualDelJuego, velocidadInicial, velocidadMaxima);
+    //    }
+    //}
 }
