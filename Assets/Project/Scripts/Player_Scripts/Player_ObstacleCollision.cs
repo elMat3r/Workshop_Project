@@ -6,6 +6,7 @@ public class Player_ObstacleCollision : MonoBehaviour
     private Player_Movement player_Movement;
     private Rigidbody rb;
     private bool isDead = false;
+    public Chunks_Pooling_Script chunkPooling;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -30,5 +31,12 @@ public class Player_ObstacleCollision : MonoBehaviour
     private void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("TriggerChunk"))
+        {
+            chunkPooling.SpawnNewChunk();
+        }
     }
 }
