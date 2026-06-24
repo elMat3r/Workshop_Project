@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Robots_Script : MonoBehaviour
@@ -70,10 +71,40 @@ public class Robots_Script : MonoBehaviour
         {
             isGrounded = true;
         }
+
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            Horda_Manager.Instance.RemoveRobot(gameObject);
+            // 1. Intentamos usar la Instancia estática si existe
+            if (Horda_Manager.Instance != null)
+            {
+                Horda_Manager.Instance.RemoveRobot(gameObject);
+            }
+            else
+            {
+                // 2. PLAN DE RESPALDO: Si Instance es null, buscamos el manager activamente en la escena
+                Horda_Manager managerEnEscena = FindObjectOfType<Horda_Manager>();
+
+                if (managerEnEscena != null)
+                {
+                    managerEnEscena.RemoveRobot(gameObject);
+                }
+                else
+                {
+                    // 3. EMERGENCIA: Si de plano no existe el manager en la escena, 
+                    // destruimos el robot de todos modos para que no sea inmortal.
+                    Debug.LogError("¡No se encontró ningún Horda_Manager en la escena!");
+                    Destroy(gameObject);
+                }
+            }
         }
+        //if (collision.gameObject.CompareTag("Ground"))
+        //{
+        //    isGrounded = true;
+        //}
+        //if (collision.gameObject.CompareTag("Obstacle"))
+        //{
+        //    Horda_Manager.Instance.RemoveRobot(gameObject);
+        //}
     }
     private void OnTriggerEnter(Collider other)
     {

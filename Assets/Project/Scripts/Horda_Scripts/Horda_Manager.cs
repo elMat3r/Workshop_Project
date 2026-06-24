@@ -65,7 +65,7 @@ public class Horda_Manager : MonoBehaviour
         }
         if(activeRobots.Count == 0)
         {
-            GameOver();
+            GameManager.Instance.ActivarGameOver();
         } 
     }
     public void CommandJump()
