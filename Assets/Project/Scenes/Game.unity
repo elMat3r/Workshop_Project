@@ -308,6 +308,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1603836056}
+    - target: {fileID: 1901671663450277819, guid: 9ef338cc52f365e42874ef370927423f, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2781
+      objectReference: {fileID: 0}
     - target: {fileID: 3087698018282816242, guid: 9ef338cc52f365e42874ef370927423f, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -591,6 +595,9 @@ MonoBehaviour:
   robotPrefab: {fileID: 298459139}
   minRobotsToDestroyObstacle: 3
   activeRobots: []
+  velocidadInicial: 9
+  velocidadMaxima: 35
+  aceleracionPorSegundo: 0.3
 --- !u!4 &375754917
 Transform:
   m_ObjectHideFlags: 0
@@ -1962,6 +1969,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1465375534}
+    - target: {fileID: 1901671663450277819, guid: 9ef338cc52f365e42874ef370927423f, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2781
+      objectReference: {fileID: 0}
     - target: {fileID: 3087698018282816242, guid: 9ef338cc52f365e42874ef370927423f, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2932,7 +2943,15 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 858668125}
+    - target: {fileID: 1901671663450277819, guid: 9ef338cc52f365e42874ef370927423f, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2781
+      objectReference: {fileID: 0}
     - target: {fileID: 3087698018282816242, guid: 9ef338cc52f365e42874ef370927423f, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 858668125}
+    - target: {fileID: 8546203134308887159, guid: 9ef338cc52f365e42874ef370927423f, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 858668125}
@@ -3031,7 +3050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 2.5, y: 1, z: 0}
+    PositionDamping: {x: 2.5, y: 3.5, z: 0}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
@@ -4328,10 +4347,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1865857587086144033, guid: 42aeee6320b595e4e9ec54710528b53c, type: 3}
-      propertyPath: m_Mass
-      value: 0.89
-      objectReference: {fileID: 0}
     - target: {fileID: 5856362236548747355, guid: 42aeee6320b595e4e9ec54710528b53c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4376,37 +4391,13 @@ PrefabInstance:
       propertyPath: chunkPooling
       value: 
       objectReference: {fileID: 226327196}
-    - target: {fileID: 7450741640144407887, guid: 42aeee6320b595e4e9ec54710528b53c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7940219998068413814, guid: 42aeee6320b595e4e9ec54710528b53c, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8382060542560317519, guid: 42aeee6320b595e4e9ec54710528b53c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8382060542560317519, guid: 42aeee6320b595e4e9ec54710528b53c, type: 3}
-      propertyPath: playerSpeed
-      value: 1.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8726200022617962519, guid: 42aeee6320b595e4e9ec54710528b53c, type: 3}
-      propertyPath: fastFall
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 8726200022617962519, guid: 42aeee6320b595e4e9ec54710528b53c, type: 3}
-      propertyPath: jumpForce
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 8726200022617962519, guid: 42aeee6320b595e4e9ec54710528b53c, type: 3}
       propertyPath: dashDuration
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8726200022617962519, guid: 42aeee6320b595e4e9ec54710528b53c, type: 3}
-      propertyPath: gravityPlayer
-      value: 40
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

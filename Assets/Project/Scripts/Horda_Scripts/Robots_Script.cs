@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class Robots_Script : MonoBehaviour
 {
-    public Player_Movement proceduralMovement;
+    public Player_Movement_Fisico proceduralMovement;
 
     public float jumpForce;
     public float gravityMultiplier;
@@ -20,42 +19,49 @@ public class Robots_Script : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         originalScale = transform.localScale;
+
+        // CORREGIDO: Ahora busca el componente físico correcto en vez del viejo
         if (proceduralMovement == null)
         {
-            proceduralMovement = GetComponent<Player_Movement>();
+            proceduralMovement = GetComponent<Player_Movement_Fisico>();
         }
+
         if (proceduralMovement != null)
         {
             proceduralMovement.enabled = true;
         }
     }
+
     private void FixedUpdate()
     {
-        if(rb.linearVelocity.y < 0f)
+        if (rb.linearVelocity.y < 0f)
         {
             rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
         }
     }
+
     public void Jump()
     {
-        if(isGrounded && !isDashing)
+        if (isGrounded && !isDashing)
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
     }
+
     public void Dash()
     {
-        if(!isGrounded)
+        if (!isGrounded)
         {
             rb.AddForce(Vector3.down * 20f, ForceMode.Impulse);
         }
-        if(!isDashing)
+        if (!isDashing)
         {
             StartCoroutine(DashRoutine());
         }
     }
+
     private IEnumerator DashRoutine()
     {
         isDashing = true;
@@ -97,20 +103,16 @@ public class Robots_Script : MonoBehaviour
                 }
             }
         }
-        //if (collision.gameObject.CompareTag("Ground"))
-        //{
-        //    isGrounded = true;
-        //}
-        //if (collision.gameObject.CompareTag("Obstacle"))
-        //{
-        //    Horda_Manager.Instance.RemoveRobot(gameObject);
-        //}
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Robots"))
         {
-            Horda_Manager.Instance.AddRobots(other.transform.position);
+            if (Horda_Manager.Instance != null)
+            {
+                Horda_Manager.Instance.AddRobots(other.transform.position);
+            }
             Destroy(other.gameObject);
         }
     }

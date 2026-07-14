@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 1865857587086144033}
   - component: {fileID: 7525198954827279233}
   - component: {fileID: 8726200022617962519}
-  - component: {fileID: 8382060542560317519}
   - component: {fileID: 7131967166436775370}
   - component: {fileID: 7450741640144407887}
+  - component: {fileID: 7090306206580723414}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -128,7 +128,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7940219998068413814}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 0.89
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -189,48 +189,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09696ecadbcb936408a99088353d0880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Jump
-  jumpForce: 8
-  gravityPlayer: 48
-  fastFall: 25
+  jumpForce: 15
+  gravityPlayer: 40
+  fastFall: 28
   dashDuration: 0.5
---- !u!114 &8382060542560317519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7940219998068413814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff469b936af339241805998d6e5f060a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player_Movement
-  playerSpeed: 2
-  progressiveSpeed:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 5
-      inSlope: 0
-      outSlope: 0.25
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 60
-      value: 20
-      inSlope: 0.25
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  loopSpeed: 0
 --- !u!114 &7131967166436775370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf22665f6262df44f8c3ec302521011a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_ObstacleCollision
+  chunkPooling: {fileID: 0}
 --- !u!114 &7450741640144407887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +218,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512dd6d46dea2ee4aa30124237b6e0ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Robots_Script
-  proceduralMovement: {fileID: 8382060542560317519}
+  proceduralMovement: {fileID: 7090306206580723414}
   jumpForce: 8
   gravityMultiplier: 50
   dashDuration: 0.5
+--- !u!114 &7090306206580723414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940219998068413814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff469b936af339241805998d6e5f060a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_Movement
