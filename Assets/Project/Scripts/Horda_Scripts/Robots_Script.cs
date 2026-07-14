@@ -5,22 +5,40 @@ public class Robots_Script : MonoBehaviour
 {
     public Player_Movement_Fisico proceduralMovement;
 
+    [Header("Físicas")]
     public float jumpForce;
     public float gravityMultiplier;
     private bool isGrounded;
 
+    [Header("Dash / Agacharse")]
     public float dashDuration;
-    private Vector3 originalScale;
     private bool isDashing = false;
 
+    // === NUEVAS VARIABLES PARA EL COLLIDER ===
+    private CapsuleCollider capsuleCollider; // O BoxCollider, usa el que tengas puesto
+    private float originalColliderHeight;
+    private Vector3 originalColliderCenter;
+
     private Rigidbody rb;
+    private Animator anim;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        originalScale = transform.localScale;
+        anim = GetComponentInChildren<Animator>();
 
-        // CORREGIDO: Ahora busca el componente físico correcto en vez del viejo
+        // === ASIGNAMOS EL COLLIDER Y GUARDAMOS SUS DATOS ===
+        capsuleCollider = GetComponent<CapsuleCollider>();
+        if (capsuleCollider != null)
+        {
+            originalColliderHeight = capsuleCollider.height;
+            originalColliderCenter = capsuleCollider.center;
+        }
+        else
+        {
+            Debug.LogError("¡El robot necesita un CapsuleCollider para agacharse físicamente!");
+        }
+
         if (proceduralMovement == null)
         {
             proceduralMovement = GetComponent<Player_Movement_Fisico>();
@@ -47,15 +65,23 @@ public class Robots_Script : MonoBehaviour
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+
+            if (anim != null)
+            {
+                anim.SetTrigger("Jump");
+                anim.SetBool("isGrounded", false);
+            }
         }
     }
 
     public void Dash()
     {
+        // Forzamos el descenso si estamos en el aire
         if (!isGrounded)
         {
             rb.AddForce(Vector3.down * 20f, ForceMode.Impulse);
         }
+
         if (!isDashing)
         {
             StartCoroutine(DashRoutine());
@@ -65,9 +91,35 @@ public class Robots_Script : MonoBehaviour
     private IEnumerator DashRoutine()
     {
         isDashing = true;
-        transform.localScale = new Vector3(originalScale.x, originalScale.y * 0.5f, originalScale.z);
+
+        // 1. Activamos la animación visual de agacharse en Mixamo
+        if (anim != null)
+        {
+            anim.SetTrigger("Dash");
+        }
+
+        // === AQUÍ ESTÁ EL CAMBIO CLAVE: NO TOCAMOS EL TRANSFORM.SCALE ===
+        // En su lugar, encogemos el Collider físicamente a la mitad
+
+        if (capsuleCollider != null)
+        {
+            // Hacemos el collider más bajito (ej: 50% de su altura original)
+            capsuleCollider.height = originalColliderHeight * 0.5f;
+
+            // Ajustamos el centro del collider para que no flote (lo bajamos la mitad de lo que encogimos)
+            capsuleCollider.center = originalColliderCenter + new Vector3(0, -(originalColliderHeight * 0.25f), 0);
+        }
+
+        // Esperamos la duración del dash
         yield return new WaitForSeconds(dashDuration);
-        transform.localScale = originalScale;
+
+        // === RESTAURAMOS EL COLLIDER FÍSICO ===
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.height = originalColliderHeight;
+            capsuleCollider.center = originalColliderCenter;
+        }
+
         isDashing = false;
     }
 
@@ -76,28 +128,28 @@ public class Robots_Script : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+
+            if (anim != null)
+            {
+                anim.SetBool("isGrounded", true);
+            }
         }
 
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            // 1. Intentamos usar la Instancia estática si existe
             if (Horda_Manager.Instance != null)
             {
                 Horda_Manager.Instance.RemoveRobot(gameObject);
             }
             else
             {
-                // 2. PLAN DE RESPALDO: Si Instance es null, buscamos el manager activamente en la escena
                 Horda_Manager managerEnEscena = FindObjectOfType<Horda_Manager>();
-
                 if (managerEnEscena != null)
                 {
                     managerEnEscena.RemoveRobot(gameObject);
                 }
                 else
                 {
-                    // 3. EMERGENCIA: Si de plano no existe el manager en la escena, 
-                    // destruimos el robot de todos modos para que no sea inmortal.
                     Debug.LogError("¡No se encontró ningún Horda_Manager en la escena!");
                     Destroy(gameObject);
                 }

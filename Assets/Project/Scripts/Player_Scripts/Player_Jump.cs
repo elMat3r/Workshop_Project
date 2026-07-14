@@ -52,11 +52,11 @@ public class Player_Jump : MonoBehaviour
     {
         isDashing = true;
 
-        transform.localScale = new Vector3(originalScale.x, 0.5f, originalScale.z);
+        //transform.localScale = new Vector3(originalScale.x, 0.5f, originalScale.z);
         
         yield return new WaitForSeconds(dashDuration);
         
-        transform.localScale = originalScale;
+        //transform.localScale = originalScale;
         
         isDashing = false;
     }
