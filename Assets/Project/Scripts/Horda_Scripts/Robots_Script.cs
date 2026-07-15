@@ -26,9 +26,8 @@ public class Robots_Script : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
-
-        // === ASIGNAMOS EL COLLIDER Y GUARDAMOS SUS DATOS ===
         capsuleCollider = GetComponent<CapsuleCollider>();
+
         if (capsuleCollider != null)
         {
             originalColliderHeight = capsuleCollider.height;
@@ -39,17 +38,23 @@ public class Robots_Script : MonoBehaviour
             Debug.LogError("¡El robot necesita un CapsuleCollider para agacharse físicamente!");
         }
 
-        if (proceduralMovement == null)
-        {
-            proceduralMovement = GetComponent<Player_Movement_Fisico>();
-        }
-
         if (proceduralMovement != null)
         {
-            proceduralMovement.enabled = true;
+            proceduralMovement.enabled = false;
         }
     }
+    public void StartRunning()
+    {
+        if (proceduralMovement != null)
+        {
+            proceduralMovement.enabled = true; // Empieza la física de correr
+        }
 
+        if (anim != null)
+        {
+            anim.SetBool("gameStarted", true); // Pasa de Idle a Run
+        }
+    }
     private void FixedUpdate()
     {
         if (rb.linearVelocity.y < 0f)
@@ -68,6 +73,7 @@ public class Robots_Script : MonoBehaviour
 
             if (anim != null)
             {
+                anim.ResetTrigger("Dash");
                 anim.SetTrigger("Jump");
                 anim.SetBool("isGrounded", false);
             }
