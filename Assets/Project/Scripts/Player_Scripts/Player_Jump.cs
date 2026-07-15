@@ -7,14 +7,11 @@ public class Player_Jump : MonoBehaviour
     public float jumpForce;
     public float gravityPlayer;
     public float fastFall;
-
     private Rigidbody rb;
     private bool isGrounded;
-
     public float dashDuration;
     private Vector3 originalScale;
     private bool isDashing = false;
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -30,7 +27,6 @@ public class Player_Jump : MonoBehaviour
     public void JumpPerform()
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-
         rb.AddForce(Vector3.up *  jumpForce, ForceMode.Impulse);
         isGrounded = false;
     }
@@ -51,13 +47,7 @@ public class Player_Jump : MonoBehaviour
     private IEnumerator DashRoutine()
     {
         isDashing = true;
-
-        //transform.localScale = new Vector3(originalScale.x, 0.5f, originalScale.z);
-        
         yield return new WaitForSeconds(dashDuration);
-        
-        //transform.localScale = originalScale;
-        
         isDashing = false;
     }
     private void FixedUpdate()

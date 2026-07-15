@@ -46,13 +46,13 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: bce7cbddfff8bd74699509513e6b60da, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 50
   DopplerLevel: 2.14
   MinDistance: 1
   MaxDistance: 500
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 3712969616430088981}
   m_Layer: 0
   m_Name: Small_Chainsaw_Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34283,10 +34283,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6990336
-  m_Height: 3.0582542
+  m_Radius: 0.7635642
+  m_Height: 3.2016602
   m_Direction: 0
-  m_Center: {x: 0.0000019073486, y: -0.10922229, z: 0}
+  m_Center: {x: 0.014343262, y: -0.04469168, z: 0}
 --- !u!1 &6183195127569017073
 GameObject:
   m_ObjectHideFlags: 0

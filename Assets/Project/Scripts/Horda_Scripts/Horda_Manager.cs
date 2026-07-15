@@ -6,17 +6,13 @@ using UnityEngine.SceneManagement;
 public class Horda_Manager : MonoBehaviour
 {
     public static Horda_Manager Instance;
-
     public GameObject robotPrefab;
     public int minRobotsToDestroyObstacle = 3;
-
     public List<GameObject> activeRobots = new List<GameObject>();
-
     [Header("Control de Velocidad Global")]
     public float velocidadInicial = 6f;
     public float velocidadMaxima = 18f;
     public float aceleracionPorSegundo = 0.1f;
-
     public float VelocidadActualDelJuego { get; private set; }
     private void Awake()
     {
@@ -99,7 +95,6 @@ public class Horda_Manager : MonoBehaviour
                 activeRobots.RemoveAt(i);
                 continue;
             }
-
             activeRobots[i].GetComponent<Robots_Script>()?.Dash();
         }
     }

@@ -7,21 +7,20 @@ public class Player_ObstacleCollision : MonoBehaviour
     private Rigidbody rb;
     private bool isDead = false;
     public Chunks_Pooling_Script chunkPooling;
-
+    private LifeManager lifeManager;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         player_Movement = GetComponent<Player_Movement_Fisico>();
     }
-
     private void Start()
     {
         if (chunkPooling == null)
         {
             chunkPooling = FindObjectOfType<Chunks_Pooling_Script>();
         }
+        lifeManager = FindFirstObjectByType<LifeManager>();
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle") && !isDead)
@@ -29,7 +28,21 @@ public class Player_ObstacleCollision : MonoBehaviour
             Die();
         }
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Obstacle") && !isDead)
+        {
+            Die();
+            return;
+        }
+        if (other.CompareTag("TriggerChunk"))
+        {
+            if (chunkPooling != null)
+            {
+                chunkPooling.SpawnNewChunk();
+            }
+        }
+    }
     private void Die()
     {
         isDead = true;
@@ -42,9 +55,9 @@ public class Player_ObstacleCollision : MonoBehaviour
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
-        if (Horda_Manager.Instance != null)
+        if (lifeManager != null)
         {
-            Horda_Manager.Instance.RemoveRobot(gameObject);
+            lifeManager.LoseLife();
         }
         else
         {
@@ -52,19 +65,17 @@ public class Player_ObstacleCollision : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
-
-    private void OnTriggerEnter(Collider other)
+    public void ResetRobot()
     {
-        if (other.CompareTag("TriggerChunk"))
+        isDead = false;
+        if (player_Movement != null)
         {
-            if (chunkPooling != null)
-            {
-                chunkPooling.SpawnNewChunk();
-            }
-            else
-            {
-                Debug.LogWarning("¡Se tocó un TriggerChunk pero no hay ninguna referencia a Chunks_Pooling_Script!");
-            }
+            player_Movement.enabled = true;
+        }
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
     }
 }
